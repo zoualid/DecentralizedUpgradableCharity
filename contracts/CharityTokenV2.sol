@@ -1,10 +1,14 @@
 // SPDX-License-Identifier: MIT
 pragma solidity >=0.8.0 <0.9.0;
 
+/*
+This smart contract is for test purpuses only, you can simply ignor it
+*/
+
 import "@openzeppelin/contracts-upgradeable/token/ERC20/ERC20Upgradeable.sol";
 import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 
-contract CharityToken is Initializable, ERC20Upgradeable {
+contract CharityTokenV2 is Initializable, ERC20Upgradeable {
     address public owner;
 
     modifier onlyOwner() {
@@ -28,5 +32,10 @@ contract CharityToken is Initializable, ERC20Upgradeable {
     function createTokens(uint256 amount) public onlyOwner returns (bool) {
         _mint(owner, amount);
         return true;
+    }
+
+    function version() public pure returns (uint256) {
+        // test only
+        return 2;
     }
 }

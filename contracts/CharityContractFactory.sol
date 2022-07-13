@@ -3,10 +3,14 @@ pragma solidity >=0.8.0 <0.9.0;
 
 import "./CharityContract.sol";
 import "./CharityToken.sol";
-import "@openzeppelin/contracts/access/Ownable.sol";
+import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
 import "@chainlink/contracts/src/v0.8/KeeperCompatible.sol";
+import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 
-contract CharityContractFactory is Ownable, KeeperCompatibleInterface {
+contract CharityContractFactory is
+    OwnableUpgradeable,
+    KeeperCompatibleInterface
+{
     // this variable store all the compaigns managers with the contract they manage with the amount they have collected until now
 
     mapping(address => uint256) donorsList;
@@ -36,7 +40,11 @@ contract CharityContractFactory is Ownable, KeeperCompatibleInterface {
         }
     }
 
-    constructor(address _token) {
+    /*constructor(address _token) {
+        t = CharityToken(_token);
+    }*/
+
+    function initialize(address _token) external initializer {
         t = CharityToken(_token);
     }
 
